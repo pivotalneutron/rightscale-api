@@ -1,7 +1,7 @@
 module RightScale
   class Client
     include HTTParty
-    
+
     def initialize(account, email, password)
       @account, @email, @password = account, email, password
       self.class.base_uri "https://my.rightscale.com/api/acct/#{@account}"
@@ -10,11 +10,11 @@ module RightScale
     def get(path, options={})
       request :get, path, options
     end
-    
+
     def post(path, options={})
       request :post, path, options
     end
-    
+
     def request(method, path, options={})
       options.merge!({
         :basic_auth => {:username => @email, :password => @password},
@@ -25,21 +25,25 @@ module RightScale
       # puts response.inspect
       return response
     end
-  
-    def deployments  
+
+    def deployments
       @deployments ||= Deployments.new(self)
     end
-    
+
     def servers
       @servers ||= Servers.new(self)
     end
-    
+
+    def server_arrays
+      @server_arrays ||= ServerArrays.new(self)
+    end
+
     def statuses
       @statuses ||= Statuses.new(self)
     end
-    
+
     def right_scripts
       @right_scripts ||= RightScripts.new(self, :resource => 'right_scripts')
     end
-  end  
+  end
 end
