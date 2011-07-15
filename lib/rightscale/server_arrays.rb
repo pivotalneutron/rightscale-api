@@ -5,8 +5,8 @@ module RightScale
       response = client.post("/server_arrays/#{identifier}/launch")
     end
 
-    def stop_all_instances(identifier)
-      response = client.post("/server_arrays/#{identifier}/stop_all_instances")
+    def terminate_all(identifier)
+      response = client.post("/server_arrays/#{identifier}/terminate_all")
     end
   end
 end
